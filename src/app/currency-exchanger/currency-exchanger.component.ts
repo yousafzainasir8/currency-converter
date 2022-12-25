@@ -14,20 +14,17 @@ export class CurrencyExchangerComponent implements OnInit {
   form: FormGroup;
   blnDtlPg: boolean = false;
   currencyTitle: string = "";
-  constructor(public service: CoverterService,
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
+
+  constructor(public service: CoverterService, private fb: FormBuilder, private route: ActivatedRoute,
     private router: Router) {
-    debugger;
     let cach = this.service.amount;
     this.form = this.fb.group({
       amount: [cach, [Validators.required, Validators.min(0)]],
       fromCurrency: ["EUR", Validators.required],
       toCurrency: ["USD", Validators.required]
     });
-
-    this.currencyList = this.service.getCurrencies();
   }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(
       params => {
@@ -35,19 +32,28 @@ export class CurrencyExchangerComponent implements OnInit {
         if (from != null && from != '') {
           this.fromCurrency?.setValue(from);
           this.blnDtlPg = true;
-          let currency = this.currencyList.find(x => x.value == from);
-          if (currency) {
-            this.currencyTitle = currency.value + " - " + currency.label;
-          }
         }
-
         let to = params.get('to');
         if (to != null && to != '') {
           this.toCurrency?.setValue(to);
-          this.calculateRates();
         }
       }
     )
+
+    this.initData();
+  }
+
+  initData() {
+    this.service.getCurrencies().subscribe((res: ISelectOption[]) => {
+      this.currencyList = res;
+      if (this.blnDtlPg) {
+        let currency = this.currencyList.find(x => x.value == this.fromCurrency?.value);
+        if (currency) {
+          this.currencyTitle = currency.value + " - " + currency.label;
+        }
+        this.calculateRates();
+      }
+    });
   }
 
   get fromCurrency() {
@@ -83,7 +89,9 @@ export class CurrencyExchangerComponent implements OnInit {
   calculateRates() {
     if (this.form.valid) {
       let data = this.form.value;
-      this.service.getLatestConversion(data.fromCurrency, data.toCurrency);
+      this.service.getLatestConversion(data.fromCurrency, data.toCurrency).subscribe(x => {
+
+      });
       this.service.setform(data.amount, data.fromCurrency, data.toCurrency);
     }
   }

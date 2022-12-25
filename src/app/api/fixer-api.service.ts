@@ -7,8 +7,9 @@ import { Injectable } from '@angular/core';
 export class FixerApiService {
 
   api = 'https://api.apilayer.com/fixer/';
+  defualtSymbols = "CAD,CHF,CNY,HKD,JPY,KWD,OMR,QAR,SEK";
   constructor(private httpClient: HttpClient) { }
- 
+
   /**
    * Using this endpoint you will be able to get Object of available currencies for subscription plan. 
    * @returns 
@@ -22,7 +23,7 @@ export class FixerApiService {
   public getCurrencies() {
     return this.httpClient.get(`${this.api}symbols`);
   }
- 
+
   /**
   * Using this endpoint you will be able to convert give ammount to desired currency.
   * @param to currency we want. e.g EUR
@@ -47,7 +48,7 @@ export class FixerApiService {
   public getConversion(to: string, from: string, amount: number) {
     return this.httpClient.get(`${this.api}convert?to=${to}&from=${from}&amount=${amount}`);
   }
- 
+
   /**
    *  Using this endpoint you will be able to  endpoint will return real-time exchange rate data updated every 60 minutes, every 10 minutes or every 60 seconds.
    * @param base currency we have. e.g. USD
@@ -66,6 +67,7 @@ export class FixerApiService {
    * }
    */
   public getLatestConversion(base: string, symbols: string) {
+    symbols = `${symbols},${this.defualtSymbols}`;
     return this.httpClient.get(`${this.api}latest?base=${base}&symbols=${symbols}`);
   }
 

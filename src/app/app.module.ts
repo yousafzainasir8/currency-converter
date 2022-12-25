@@ -9,9 +9,11 @@ import { CurrencyCardComponent } from './currency-card/currency-card.component';
 import { ConverterMainComponent } from './converter-main/converter-main.component';
 import { ConverterDetailComponent } from './converter-detail/converter-detail.component';
 import { CurrencyExchangerComponent } from './currency-exchanger/currency-exchanger.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
+import { HttpClientInterceptor } from './interceptor/http-client-interceptor';
+import { NgxLoaderModule } from '@tusharghoshbd/ngx-loader';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,15 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule,  
     ReactiveFormsModule,
     AppRoutingModule,
+    NgxLoaderModule,
     NgChartsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpClientInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

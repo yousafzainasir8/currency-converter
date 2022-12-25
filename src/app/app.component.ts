@@ -9,7 +9,10 @@ import { CoverterService } from './service/coverter.service';
 })
 export class AppComponent {
   title = 'Currency Converter';
-  constructor(private httpClient: HttpClient, private service: CoverterService) {
-    console.log(this.service.getCurrencies());
+  show = false;
+  fullScreen = true;
+  template = ``
+  constructor(private httpClient: HttpClient, public service: CoverterService) {
+    
   }
 }
