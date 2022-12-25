@@ -1,0 +1,15 @@
+.card{
+    padding: 10px;
+    background-color: #808080;
+    border-radius: 5px;
+    margin: 10px;    
+}
+.form-label {
+    display: block;
+    padding: 10px 8px;
+    width: 90%;
+    font-weight: 600;
+}
+.text-white{
+    color: white;
+}

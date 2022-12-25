@@ -1,0 +1,54 @@
+<h2 *ngIf="!blnDtlPg">Currency Exchanger</h2>
+<h2 *ngIf="blnDtlPg">{{currencyTitle}}</h2>
+<div [formGroup]="form" class="currency-exchanger">
+    <div class="amount-container">
+        <div class="form-group">
+            <label class="form-label">Amount</label>
+            <input formControlName="amount" type="number" min="0" class="form-input" value="0" />
+        </div>
+        <div class="form-group text-align">
+            <label class="form-label">
+                {{conversionRate()}}</label>
+        </div>
+    </div>
+    <div class="exchange-container">
+        <div class="converter">
+            <div class="from-block">
+                <div class="form-group">
+                    <label class="form-label">From{{!form.valid}}</label>
+                    <select formControlName="fromCurrency" name="valueCheck" class="form-input">
+                        <option [ngValue]="undefined" disabled>Select Currency </option>
+                        <option *ngFor="let opt of currencyList" [ngValue]="opt.value">
+                            {{opt.value}} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="swap-block">
+                <img width="100" (click)="onSwapData()" alt="currency converter" src="assets/swap.png" />
+            </div>
+            <div class="to-block">
+                <div class="form-group">
+                    <label class="form-label">To</label>
+                    <select formControlName="toCurrency" name="valueCheck" class="form-input">
+                        <option [ngValue]="undefined" disabled>Select Currency </option>
+                        <option *ngFor="let opt of currencyList" [ngValue]="opt.value">
+                            {{opt.value}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="convert-block">
+            <input type="button" (click)="calculateRates()" [attr.disabled]="form.valid?null:''"
+                class="form-botton btn-primary" value="Convert" />
+        </div>
+        <div class="detail-block">
+            <div class="converted-data text-align">
+                <label class="form-label form-label-lg">{{getTotalAmount()}}</label>
+            </div>
+            <div *ngIf="!blnDtlPg" class="detail">
+                <input (click)="onDetails()" [attr.disabled]="form.valid?null:''" type="button" class="form-botton btn-primary"
+                    value="Details" />
+            </div>
+        </div>
+    </div>
+</div>

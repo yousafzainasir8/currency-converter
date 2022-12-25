@@ -1,0 +1,41 @@
+<div class="currency-container sticky">
+    <app-currency-exchanger></app-currency-exchanger>
+</div>
+<div class="currency-grid currency-grid-sm">
+    <div class="currency-item">
+        <app-currency-card currency="CAD" [conversion]="coverterService.rates['CAD']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="CHF" [conversion]="coverterService.rates['CHF']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="CNY" [conversion]="coverterService.rates['CNY']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="HKD" [conversion]="coverterService.rates['HKD']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="JPY" [conversion]="coverterService.rates['JPY']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="KWD" [conversion]="coverterService.rates['KWD']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="OMR" [conversion]="coverterService.rates['OMR']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="QAR" [conversion]="coverterService.rates['QAR']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+    <div class="currency-item">
+        <app-currency-card currency="SEK" [conversion]="coverterService.rates['SEK']" [amount]="coverterService.amount">
+        </app-currency-card>
+    </div>
+</div>
